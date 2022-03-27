@@ -1,14 +1,13 @@
-import "./App.css";
+import React from "react";
 
+import { useRoutes } from "react-router-dom";
+import Register from "./components/auth/Register";
+import Home from "./components/Home";
 function App() {
-  return (
-    <div className="App">
-      <h1>Hello world</h1>
-      <form action="/post" method="post" className="form">
-        <button type="submit">Connected?</button>
-      </form>
-    </div>
-  );
+  return useRoutes([
+    { path: "/", element: <Home /> },
+    { path: "/register", element: <Register /> },
+  ]);
 }
 
 export default App;
