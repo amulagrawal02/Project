@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
+import axios from "axios";
 
 function Register_user() {
   const [data, setData] = useState({
@@ -11,7 +12,7 @@ function Register_user() {
   });
   const handler = async (e) => {
     e.preventDefault();
-    console.log(data);
+    await axios.post("/register/as_user", data);
   };
   return (
     <div className="mt-5">
