@@ -27,9 +27,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.method.matchpassword = async function (enterpassword) {
-  return await bcrypt.compare(enterpassword, this.password);
-};
 // pre is the middleware which is called when the document of data of user changed
 userSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
