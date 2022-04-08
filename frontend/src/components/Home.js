@@ -1,16 +1,33 @@
 import axios from "axios";
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import AfterLogin from "./AfterLogin";
+import BeforeLogin from "./BeforeLogin";
 
 function Home() {
-  var data = "";
+  const [data, setdata] = useState({
+    city: "",
+    email: "",
+    name: "",
+    pin: "",
+    status: "",
+  });
   async function getDataFromBackend(token) {
     //  here we don't use post method because we don't send any data we just
     // update the http header
-    data = await axios.get("http://localhost:8000/login/data", {
+    var tempdata = await axios.get("http://localhost:8000/login/data", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
+    });
+    tempdata = tempdata.data;
+    console.log(tempdata);
+    await setdata({
+      email: tempdata.email,
+      status: tempdata.status,
+      name: tempdata.name,
+      city: tempdata.city,
+      pin: tempdata.pin,
     });
     console.log(data);
   }
@@ -19,14 +36,13 @@ function Home() {
     console.log(token);
     if (!token) {
     } else {
-      console.log("yes");
       getDataFromBackend(token); // to get the data for particular token
     }
   }, []);
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
+  return localStorage.getItem("token") ? (
+    <AfterLogin {...data} />
+  ) : (
+    <BeforeLogin />
   );
 }
 

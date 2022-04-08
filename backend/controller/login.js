@@ -32,7 +32,7 @@ module.exports.data = async function (req, res) {
     const id = decoded.id;
     const data = await userDetails.findById(id);
     return res.json({
-      status: true,
+      status: "true",
       email: data.email,
       name: data.name,
       city: data.city,
